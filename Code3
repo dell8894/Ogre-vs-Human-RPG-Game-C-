@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Battle
+{
+    internal class Orc : Creature
+    {
+        public Orc(string n)
+        {
+            this.name = n;
+            this.type = nameof(Orc);
+            this.BaseAttack = Creature.RN.Next(10, 16);
+            this.BaseHealth = Creature.RN.Next(45, 71);
+            this.CurrentHealth = this.BaseHealth;
+        }
+
+        public override int Attack()
+        {
+            int num1 = Creature.RN.Next(0, 11);
+            int num2 = this.BaseAttack + num1;
+            this.CurrentHealth -= num1;
+            if (num2 <= 0)
+                num2 = 0;
+            return num2;
+        }
+    }
+}
