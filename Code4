@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Battle
+{
+    internal class Human : Creature
+    {
+        public int MedicineCount { get; set; }
+
+        public Human(string n)
+        {
+            this.name = n;
+            this.type = nameof(Human);
+            this.BaseAttack = Creature.RN.Next(5, 11);
+            this.BaseHealth = Creature.RN.Next(30, 51);
+            this.MedicineCount = Creature.RN.Next(3, 9);
+            this.CurrentHealth = this.BaseHealth;
+        }
+
+        public void Heal()
+        {
+            if (this.MedicineCount <= 0)
+                return;
+            this.CurrentHealth += Creature.RN.Next(5, 11);
+            --this.MedicineCount;
+            Console.WriteLine(this.name + " took the medicine!");
+        }
+
+        public override int Attack()
+        {
+            int num = this.BaseAttack + Creature.RN.Next(-7, 4);
+            if (num <= 0)
+                num = 0;
+            if (Creature.RN.Next(1, 101) < 50)
+                this.Heal();
+            return num;
+        }
+
+        public override void Display()
+        {
+            Console.WriteLine("Name: " + this.name);
+            Console.WriteLine("Type: " + this.type);
+            Console.WriteLine("Attack: " + (object)this.BaseAttack);
+            Console.WriteLine("Health: " + (object)this.CurrentHealth);
+            Console.WriteLine("Medicine Left: " + (object)this.MedicineCount);
+        }
+    }
+}
