@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Battle
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Human human = new Human("Mike");
+            Orc orc = new Orc("Snow");
+            int damage1 = 0;
+            int damage2 = 0;
+            while (true)
+            {
+                human.setHealth(damage2);
+                orc.setHealth(damage1);
+                human.Display();
+                Console.WriteLine();
+                orc.Display();
+                Console.WriteLine("\n\n");
+                Console.Write("Sample fight round data for " + human.name + ": \t");
+                Console.WriteLine("Damage: " + (object)damage1);
+                Console.Write("Sample fight round data for " + orc.name + ": \t");
+                Console.WriteLine("Damage: " + (object)damage2);
+                if (human.CurrentHealth > 0 || orc.CurrentHealth > 0)
+                {
+                    if (human.CurrentHealth > 0)
+                    {
+                        if (orc.CurrentHealth > 0)
+                        {
+                            damage1 = human.Attack();
+                            damage2 = orc.Attack();
+                            Console.Write("\nClick any key to next round: ");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else
+                            goto label_5;
+                    }
+                    else
+                        goto label_3;
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("\n\nIt is a tie.");
+            goto label_8;
+        label_3:
+            Console.WriteLine("\n\nThe winner is " + orc.name + " !");
+            goto label_8;
+        label_5:
+            Console.WriteLine("\n\nThe winner is " + human.name + " !");
+        label_8:
+            Console.ReadKey();
+        }
+    }
+}
